@@ -5,7 +5,32 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from fields.models import Field, FieldUpdate, UserProfile
+from django.shortcuts import render, redirect
+from django.contrib.auth.hashers import make_password
 
+
+def landing_page(request):
+    return render(request, "landing.html")
+
+
+
+def setup_admin(request):
+    if User.objects.filter(is_superuser=True).exists():
+        return redirect('admin:login')
+
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+
+        User.objects.create(
+            username=username,
+            password=make_password(password),
+            is_superuser=True,
+            is_staff=True
+        )
+        return redirect('admin:login')
+
+    return render(request, "setup_admin.html")
 
 def require_admin(view_func):
     def wrapper(request, *args, **kwargs):

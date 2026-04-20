@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Delete {{ field.name }} - Smart Farm{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-6 rounded shadow mt-8">
+    <h1 class="text-xl font-bold mb-4 text-red-700">Delete Field</h1>
+    <p class="mb-6 text-gray-700">
+        Are you sure you want to delete
+        <strong>{{ field.name }}</strong> ({{ field.crop_type }})?
+        This action cannot be undone.
+    </p>
+    <form method="post" class="flex items-center gap-3">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+            Yes, Delete
+        </button>
+        <a href="{% url 'field_detail' field.id %}" class="text-gray-600 hover:underline">Cancel</a>
+    </form>
+</div>
+{% endblock %}

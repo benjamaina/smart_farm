@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Setup Admin - Smart Farm{% endblock %}
+
+{% block content %}
+
+<div class="max-w-md mx-auto bg-white p-6 rounded shadow mt-10">
+    <h2 class="text-xl font-bold mb-4 text-center text-green-700">
+        Create First Admin
+    </h2>
+
+    {% if error %}
+        <p class="text-red-600 mb-3">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label class="block text-sm font-medium">Username</label>
+            <input 
+                type="text" 
+                name="username"
+                class="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:ring-green-300"
+                required
+            >
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium">Password</label>
+            <input 
+                type="password" 
+                name="password"
+                class="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring focus:ring-green-300"
+                required
+            >
+        </div>
+
+        <button 
+            type="submit"
+            class="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800 transition"
+        >
+            Create Admin
+        </button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}{% if field %}Edit{% else %}Add{% endif %} Field - Smart Farm{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-6">
+        {% if field %}Edit Field{% else %}Add New Field{% endif %}
+    </h1>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Name</label>
+            <input type="text" name="name" required value="{{ field.name|default:'' }}"
+                class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Crop Type</label>
+            <input type="text" name="crop_type" required value="{{ field.crop_type|default:'' }}"
+                class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Planting Date</label>
+            <input type="date" name="planting_date" required value="{{ field.planting_date|date:'Y-m-d'|default:'' }}"
+                class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Stage</label>
+            <select name="stage" class="w-full border border-gray-300 rounded px-3 py-2">
+                {% for value, label in stage_choices %}
+                    <option value="{{ value }}" {% if field.stage == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        {% if user.profile.is_admin %}
+        <div>
+            <label class="block text-sm font-medium mb-1">Assigned Agent</label>
+            <select name="assigned_to" class="w-full border border-gray-300 rounded px-3 py-2">
+                <option value="">— Unassigned —</option>
+                {% for agent in agents %}
+                    <option value="{{ agent.id }}" {% if field.assigned_to_id == agent.id %}selected{% endif %}>
+                        {{ agent.username }}{% if agent.get_full_name %} ({{ agent.get_full_name }}){% endif %}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Notes</label>
+            <textarea name="notes" rows="4" class="w-full border border-gray-300 rounded px-3 py-2">{{ field.notes|default:'' }}</textarea>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+            <button type="submit" class="bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded">
+                {% if field %}Save Changes{% else %}Create Field{% endif %}
+            </button>
+            <a href="{% url 'field_list' %}" class="text-gray-600 hover:underline">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

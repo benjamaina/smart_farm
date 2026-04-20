@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - Smart Farm{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-16 text-center bg-white p-8 rounded shadow">
+    <h1 class="text-3xl font-bold mb-4">Smart Farm</h1>
+    <p class="text-gray-600 mb-6">Field monitoring system for farm agents and administrators.</p>
+    <a href="{% url 'login' %}"
+       class="inline-block bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded font-medium">
+        Login to continue
+    </a>
+
+    <a href="{% url 'setup_admin' %}"
+       class="inline-block bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded font-medium mt-4">
+        Setup Admin
+    </a>
+</div>
+{% endblock %}
