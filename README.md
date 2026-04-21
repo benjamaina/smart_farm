@@ -3,6 +3,8 @@
 A Django web app for tracking agricultural fields and coordinating between farm admins and field agents. Admins manage fields and agents from a central dashboard; agents log updates on whatever fields are assigned to them.
 
 ---
+## Live Demo
+https://benmaina.pythonanywhere.com
 
 ## Table of Contents
 
