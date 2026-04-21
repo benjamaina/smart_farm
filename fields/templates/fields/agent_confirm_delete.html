@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Delete Agent - Smart Farm{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-6 rounded shadow mt-8">
+    <h1 class="text-xl font-bold mb-4 text-red-700">Delete Agent</h1>
+    <p class="mb-6 text-gray-700">
+        Are you sure you want to delete agent <strong>{{ agent.username }}</strong>?
+        Their assigned fields will become unassigned.
+    </p>
+    <form method="post" class="flex items-center gap-3">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Yes, Delete</button>
+        <a href="{% url 'agent_list' %}" class="text-gray-600 hover:underline">Cancel</a>
+    </form>
+</div>
+{% endblock %}
