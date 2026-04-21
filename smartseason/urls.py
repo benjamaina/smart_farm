@@ -22,7 +22,7 @@ from fields.views.web import landing_page, setup_admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('setup_admin/', setup_admin, name='setup_admin'),
-    path('', landing_page, name="landing"),
+    path('landing/', landing_page, name="landing"),
     path('', include('fields.urls')),
 
 ]

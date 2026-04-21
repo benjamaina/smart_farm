@@ -22,11 +22,9 @@ def setup_admin(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        User.objects.create(
+        User.objects.create_superuser(
             username=username,
-            password=make_password(password),
-            is_superuser=True,
-            is_staff=True
+            password=password
         )
         return redirect('admin:login')
 

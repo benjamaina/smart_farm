@@ -1,8 +1,13 @@
 from pathlib import Path
+import environ
+import os
+
+env = environ.Env()
+environ.Env().read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-g$s*$&lf+e$asho-7@r7*mu)8o+vz+=ibgko@#bqc@&h**u+jn"
+SECRET_KEY = env("SECRET_KEY", default="your-secret-key")
 
 DEBUG = True
 
@@ -19,6 +24,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "django_filters",
     "fields",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -77,7 +83,7 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 20,
 }
 
-LOGIN_URL = "/login/"
+LOGIN_URL = "/landing/"
 LOGIN_REDIRECT_URL = "/dashboard/"
 LOGOUT_REDIRECT_URL = "/login/"
 
